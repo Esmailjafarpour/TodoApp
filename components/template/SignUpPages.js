@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import Link from "next/link";
 import FormInput from "@/module/FormInput";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+
 
 const SignUpPages = () => {
 
      const router = useRouter();
+     const { status } = useSession();
+
      const [state, setAllState] = useState({
           email :"",
           password :""
      });
+
+     useEffect(() => {
+          if (status === "authenticated") router.replace("/")
+      }, [status]);
 
      const changeHandler = (event) => {
           const { name , value } = event.target

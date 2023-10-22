@@ -5,9 +5,8 @@ import { hashPassword } from "@/utils/auth";
 async function handler(req ,res){
 
      if (req.method !== "POST") return
-     
      try {
-          await connectDB();
+          await connectDB()
      } catch (error) {
          console.log(error)
          return res.status(500).json({status : "failed",message : "Error in connecting to DB"}); 
