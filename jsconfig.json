@@ -6,7 +6,8 @@
                "@/models/*": ["models/*"],
                "@/template/*":["components/template/*"],
                "@/layout/*":["components/Layout/*"],
-               "@/module/*":["components/module/*"]
+               "@/module/*":["components/module/*"],
+               "@/element/*":["components/element/*"]
           }
      }
 }

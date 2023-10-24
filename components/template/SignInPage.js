@@ -11,7 +11,7 @@ const SignInPage = () => {
 
      const [state, setAllState] = useState({
           email :"nader@gmail.com",
-          password :"123"
+          password :"123456"
      });
 
      useEffect(() => {

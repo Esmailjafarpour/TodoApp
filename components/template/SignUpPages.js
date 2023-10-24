@@ -4,7 +4,6 @@ import FormInput from "@/module/FormInput";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-
 const SignUpPages = () => {
 
      const router = useRouter();
@@ -38,7 +37,7 @@ const SignUpPages = () => {
                headers : {"Content-Type" : "application/json"}
           })
           const data = await res.json()
-          console.log(data)
+          console.log("SignUpPages data",data)
           if (data.status === "success") router.push("/signin")
      }
      
