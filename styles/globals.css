@@ -238,6 +238,8 @@ button {
   margin: 20px;
   border-radius: 5px;
   flex-grow: 1;
+  width: 25%;
+ 
 }
 
 .home-page p {
@@ -248,6 +250,7 @@ button {
   color: white;
   font-size: 1.3rem;
   font-weight: bold;
+  width: 100%;
 }
 
 .home-page--todo p {
@@ -268,12 +271,21 @@ button {
 
 .home-page .tasks {
   margin: 0;
+  width: 100%;
 }
 
 .tasks .tasks__card {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   padding: 15px;
   margin: 25px 15px;
+  width: 85%;
+}
+
+.tasks .tasks__card > p{
+  font-size: 12px;
+  margin: 5px 0;
+  height: 45px;
+  overflow-y: hidden;
 }
 
 .tasks .tasks__card span {
@@ -297,17 +309,85 @@ button {
   background-color: #14d3e2;
 }
 
+.btn-todo{
+    background-color: #f2b82e;
+    color: aliceblue;
+}
+.btn-inProgress{
+  background-color: #1be2b1;
+  color: aliceblue;
+
+}
+.btn-review{
+  background-color: #3f79f7;
+  color: aliceblue;
+
+}
+.btn-done{
+  background-color: #14d3e2;
+  color: aliceblue;
+}
+
+.header{
+    width: 50%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.header-todo{
+    width: 100%;
+    background-color: #f2b82e;
+    color: aliceblue;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-inProgress{
+  width: 100%;
+  background-color: #1be2b1;
+  color: aliceblue;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-review{
+  width: 100%;
+  background-color: #3f79f7;
+  color: aliceblue;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-done{
+  width: 100%;
+  background-color: #14d3e2;
+  color: aliceblue;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .tasks .tasks__card h4 {
   color: #494a52;
   font-size: 1.1rem;
   font-weight: 400;
+  padding: 5px 0;
 }
 
 .tasks .tasks__card div {
   display: flex;
   justify-content: space-between;
   background-color: #fff;
-  margin: 25px 0 0 0;
+  margin: 15px 0 0 0;
+  width: 100%;
 }
 
 .tasks .tasks__card div button {
@@ -377,4 +457,24 @@ button {
   padding: 20px;
   font-size: 1rem;
   outline: none;
+}
+
+.textarea-input{
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea-input label {
+  margin-bottom: 10px;
+}
+
+.textarea-input textarea{
+  background-color: #e3e3e3;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  outline: none;
+  color: #7f7e86;
+  max-width: 300px;
 }

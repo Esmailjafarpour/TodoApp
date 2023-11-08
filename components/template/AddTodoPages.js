@@ -1,43 +1,40 @@
 import { useState, useEffect } from "react";
 import FormInput from "@/module/FormInput";
 import RadioButton from "@/element/RadioButton";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { GrAddCircle } from "react-icons/gr";
 import { BsAlignStart } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdDoneAll } from "react-icons/md";
-
+import Textarea from "@/module/Textarea";
 
 const AddTodoPages = () => {
-
   const [state, setAllState] = useState({
     title: "",
     status: "todo",
+    description: "",
   });
 
   const addHandler = async () => {
+    const res = await fetch("/api/todos", {
+      method: "POST",
+      body: JSON.stringify({ title: state.title, status: state.status , description : state.description}),
+      headers: { "Content-Type": "application/json" },
+    });
 
-     const res = await fetch("/api/todos",{
-          method : "POST",
-          body : JSON.stringify({title : state.title , status : state.status}),
-          headers: { "Content-Type": "application/json" },
-     })
-
-     const data = await res.json()
-     console.log(data)
-     if (data.status === "success") {
-      console.log("www")
-          setAllState({
-               ...state,
-               title : "",
-               status : "todos"
-          })
-          toast.success("Todo added!")
-
-     }
-  }
+    const data = await res.json();
+    console.log(data)
+    if (data.status === "success") {
+      setAllState({
+        ...state,
+        title: "",
+        status: "todos",
+      });
+      toast.success("Todo added!");
+    }
+  };
 
   return (
     <div className="add-form">
@@ -59,6 +56,20 @@ const AddTodoPages = () => {
           />
         </div>
 
+        <div className="add-form__input--first">
+          <FormInput
+              label="Description"
+              name="description"
+              type="text"
+              value={state.description}
+              onChange={(e) => {setAllState({
+                ...state,
+                description : e.target.value
+              })}}
+              placeholder="write description"
+            />
+        </div>
+
         <div className="add-form__input--second">
           <RadioButton
             title="Todo"
@@ -66,7 +77,7 @@ const AddTodoPages = () => {
             state={state}
             setAllState={setAllState}
           >
-               <BsAlignStart/>
+            <BsAlignStart />
           </RadioButton>
           <RadioButton
             title="In Progress"
@@ -74,7 +85,7 @@ const AddTodoPages = () => {
             state={state}
             setAllState={setAllState}
           >
-               <FiSettings/>
+            <FiSettings />
           </RadioButton>
           <RadioButton
             title="Review"
@@ -82,7 +93,7 @@ const AddTodoPages = () => {
             state={state}
             setAllState={setAllState}
           >
-               <AiOutlineFileSearch/>
+            <AiOutlineFileSearch />
           </RadioButton>
           <RadioButton
             title="Done"
@@ -90,7 +101,7 @@ const AddTodoPages = () => {
             state={state}
             setAllState={setAllState}
           >
-               <MdDoneAll/>
+            <MdDoneAll />
           </RadioButton>
         </div>
         <button onClick={addHandler}>Add</button>

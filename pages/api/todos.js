@@ -1,43 +1,72 @@
 import connectDB from "@/utils/connectDB";
 import { getSession } from "next-auth/react";
 import User from "@/models/User";
+import { sortTodos } from "@/utils/sortTodos";
 
-async function handler(req , res) {
-    
-     try {
-          await connectDB();
-     } catch (error) {
-          console.log("error api todos",error)
-          return res.status(500).json({status :"failed", message : "Error in connecting to DB"})
-     }
+async function handler(req, res) {
+  try {
+    await connectDB();
+  } catch (error) {
+    console.log("error api todos", error);
+    return res
+      .status(500)
+      .json({ status: "failed", message: "Error in connecting to DB" });
+  }
 
-     const session = await getSession({ req });
-     
-     if (!session) {
-          return res.status(401).json({status : "failed" , message : "you aren't logged in!"})
-     }
+  const session = await getSession({ req });
 
-     const user = await User.findOne({email : session.user.email})
+  if (!session) {
+    return res
+      .status(401)
+      .json({ status: "failed", message: "you aren't logged in!" });
+  }
 
-     if (!user) {
-         return res.status(404).json({status : "failed" , message : "user doesn't exist!"}) 
-     }
+  const user = await User.findOne({ email: session.user.email });
 
-     if (req.method === "POST") {
-          
-          const { title , status } = req.body;
+  if (!user) {
+    return res
+      .status(404)
+      .json({ status: "failed", message: "user doesn't exist!" });
+  }
 
-          if (!title || !status) {
-               return res.status(422).json({status : "failed" , message : "Invalid data!"})
-          }
+  if (req.method === "POST") {
+    const { title, status, description } = req.body;
 
-          user.todos.push({title , status});
-          user.save();
+    if (!title || !status || !description) {
+      return res
+        .status(422)
+        .json({ status: "failed", message: "Invalid data!" });
+    }
 
-          return res.status(201).json({status : "success" , message : "todo Created!"})
-     }
 
+    user.todos.push({ title, status, description });
+    user.save();
+
+    return res
+      .status(201)
+      .json({ status: "success", message: "todo Created!" });
+
+  } else if (req.method === "GET") {
+
+    const sortedData = sortTodos(user.todos);
+    res.status(200).json({ status: "success", data: { todos: sortedData } });
+
+  } else if (req.method === "PATCH") {
+
+    const { id, status } = req.body;
+    if (!id || !status) {
+      return res
+        .status(422)
+        .json({ status: "failed", message: "Invalid data!" });
+    }
+
+    const result = await User.updateOne(
+      { "todos._id": id },
+      { $set: { "todos.$.status": status } }
+    );
+    console.log(result);
+    res.status(200).json({ status: "success" });
+  }
 }
-
 
 export default handler;
