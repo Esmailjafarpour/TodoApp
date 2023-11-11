@@ -17,15 +17,14 @@ const authOptions = {
                          throw new Error("Error to connect DB")
                     }
 
-                    console.log(email,password)
-
+                    // console.log(email,password)
 
                     if (!email || !password) {
                          throw new Error("Invalid Date")
                     }
 
                     const user = await User.findOne({email : email});
-                    console.log("user",user)
+                    // console.log("user",user)
 
                     if (!user) {
                          throw new Error("user doesn't exist!")
@@ -37,8 +36,8 @@ const authOptions = {
                          throw new Error("Username or Password in incorrect")
                     }
 
-                    console.log("...nextauth" , email , password , name , lastName)
-                     return{email}
+                    // console.log("...nextauth" , email , password , name , lastName)
+                    return{email}
                },
           }),
      ],

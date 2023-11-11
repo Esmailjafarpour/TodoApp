@@ -28,6 +28,19 @@ async function handler(req , res) {
           const id = req.query.taskId;     
           return res.status(200).json({status : "success" , message : "recive data" , data :{todos : user.todos}})
      }
+
+     if (req.method === "PATCH") {
+          const { todos } = req.body;
+          if (!todos) {
+                    return res
+                      .status(422)
+                      .json({ status: "failed", message: "Invalid data!" });
+          }
+
+          user.todos = todos;
+          user.save();
+          return res.status(200).json({status : "success" , message : "update todo"})
+     }
      
 }
 

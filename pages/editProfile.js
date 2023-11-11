@@ -1,10 +1,10 @@
-import { useState , useEffect } from "react";
-import { CgProfile } from "react-icons/cg";
 import ProfileForm from "@/module/ProfileForm";
-import ProfileData from "@/module/ProfileData";
+import { useState , useEffect } from "react";
+import { useRouter } from "next/router";
 
-const ProfilePage = () => {
+const EditProfile = () => {
 
+     const router = useRouter();
      const [state, setAllState] = useState({
           name : "",
           lastName : "",
@@ -24,6 +24,8 @@ const ProfilePage = () => {
           console.log("data",data)
           setAllState({
                ...state,
+               name : data.data.name,
+               lastName : data.data.lastName,
                data : data.data
           })
         }
@@ -36,20 +38,12 @@ const ProfilePage = () => {
                headers : {"Content-Type" : "application/json"}
           })
           const data = await res.json();
-          console.log(data)
+          if (data.status === "success") router.replace("/profile")
      }
 
-
-
-
      return (
-          <div className="profile-form">
-               <h2>
-                    <CgProfile/>
-                    Profile
-               </h2>
-               {state.data ? <ProfileData data={state.data}/> :
-               <ProfileForm
+          <div>
+              <ProfileForm
                     state={state}
                     name={state.name}
                     lastName={state.lastName}
@@ -57,9 +51,8 @@ const ProfilePage = () => {
                     setAllState={setAllState}
                     submitHandler={submitHandler}
                />
-               }
           </div>
      );
 }
 
-export default ProfilePage;
+export default EditProfile;

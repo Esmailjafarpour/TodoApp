@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from "next/link";
 
 const ProfileData = ({data}) => {
      return (
@@ -17,6 +18,7 @@ const ProfileData = ({data}) => {
                     <span>Email :</span>
                     <p>{data.email}</p>
                </div>
+               <button><Link href="/editProfile">Edit</Link></button>
           </div>
      );
 }

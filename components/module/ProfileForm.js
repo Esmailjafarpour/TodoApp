@@ -38,7 +38,11 @@ const ProfileForm = ({state , name , lastName , password , setAllState , submitH
                               placeholder="password"
                          />
                    </div>
-                   <button onClick={submitHandler}>Submit</button>
+                   {name && lastName ? 
+                    <button onClick={submitHandler}>Edit Profile</button>
+                    :
+                    <button onClick={submitHandler}>Submit</button>
+                   }
           </>
      );
 }
