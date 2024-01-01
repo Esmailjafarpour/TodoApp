@@ -1,5 +1,5 @@
 import { useState , useEffect } from "react";
-import { useRouter } from "next/Router";
+import { Userouter } from "next/router";
 import { getSession } from "next-auth/react";
 import FormInput from "@/module/FormInput";
 import Textarea from "@/module/Textarea";
@@ -12,8 +12,8 @@ import { MdDoneAll } from "react-icons/md";
 
 function editTaskId(props) {
 
-     const Router = useRouter();
-     const {query : { editTaskId } , isReady} = Router;
+     const router = Userouter();
+     const {query : { editTaskId } , isReady} = router;
      const [state, setAllState] = useState({
           todos : [],
           index : "",
@@ -67,7 +67,7 @@ function editTaskId(props) {
 
           const data = await res.json();
 
-          if (data.status === "success") Router.replace("/")
+          if (data.status === "success") router.replace("/")
                
      }
 
