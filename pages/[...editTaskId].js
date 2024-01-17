@@ -10,7 +10,7 @@ import { FiSettings } from "react-icons/fi";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdDoneAll } from "react-icons/md";
 
-function editTaskId(props) {
+export default function editTaskId(props) {
 
      const router = useRouter();
      const {query : { editTaskId } , isReady} = router;
@@ -151,7 +151,6 @@ function editTaskId(props) {
      );
 }
 
-export default editTaskId;
 
 export async function getServerSideProps({req}){
 
